@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  min-height:100vh;
+  background:
+  linear-gradient(
+    135deg,
+    #0f2027 0%,
+    #203a43 50%,
+    #2c5364 100%
+  );
+  color:white;
+}
+/*HEADER */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 30px;
+
+  backdrop-filter:blur(20px);
+
+  background:
+  rgba(255,255,255,.08);
+
+  border-bottom:
+  1px solid rgba(255,255,255,.15);
+}
+
+.header h2{
+  margin:0;
+  font-size:28px;
+  font-weight:700;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:30px;
+}
+
+/* SEARCH */
+
+.search-bar{
+  display:flex;
+  justify-content:center;
+  margin-bottom:25px;
+}
+
+#search{
+  width:500px;
+  max-width:95%;
+  padding:14px 20px;
+
+  border:none;
+  outline:none;
+
+  border-radius:40px;
+
+  backdrop-filter:blur(20px);
+
+  background:
+  rgba(255,255,255,.15);
+
+  color:white;
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.15);
+}
+
+#search::placeholder{
+  color:white;
+}
+
+/* FORM */
+
+input,
+textarea{
+
+  width:1150px;
+
+  background:
+  rgba(255,255,255,.15);
+
+  backdrop-filter:blur(20px);
+
+  border:none;
+
+  color:white;
+
+  padding:15px;
+
+  border-radius:14px;
+
+  margin:8px;
+
+  box-shadow:
+  0 8px 20px rgba(0,0,0,.15);
+}
+
+textarea{
+  resize:none;
+  min-height:50px;
+}
+
+/* BUTTONS */
+
+button{
+
+  border:none;
+
+  padding:12px 22px;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  color:white;
+
+  font-weight:600;
+
+  transition:.3s;
+
+  background:
+  linear-gradient(
+    135deg,
+    #00c6ff,
+    #0072ff
+  );
+}
+
+button:hover{
+  transform:
+  translateY(-3px);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.25);
+}
+
+.logout-btn{
+  background:
+  linear-gradient(
+    135deg,
+    #ff416c,
+    #ff4b2b
+  );
+}
+
+/* TASK GRID */
+
+#tasks{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(
+    auto-fit,
+    minmax(350px,1fr)
+  );
+
+  gap:25px;
+
+  margin-top:30px;
+}
+
+/* TASK CARD */
+
+.task{
+
+  background:
+  rgba(255,255,255,.15);
+
+  backdrop-filter:blur(20px);
+
+  border:
+  1px solid rgba(255,255,255,.15);
+
+  border-radius:20px;
+
+  padding:20px;
+
+  color:white;
+
+  transition:.3s;
+
+  animation:
+  fadeUp .5s ease;
+}
+
+.task:hover{
+
+  transform:
+  translateY(-8px);
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.2);
+}
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:
+    translateY(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+    translateY(0);
+  }
+}
+
+/* STATUS */
+
+.completed{
+
+  background:#16a34a;
+
+  padding:6px 12px;
+
+  border-radius:20px;
+
+  font-size:13px;
+}
+
+.pending{
+
+  background:#ef4444;
+
+  padding:6px 12px;
+
+  border-radius:20px;
+
+  font-size:13px;
+}
+
+/* ACTIONS */
+
+.actions{
+
+  margin-top:15px;
+
+  display:flex;
+
+  gap:10px;
+}
+
+/* EMPTY */
+
+.empty{
+
+  text-align:center;
+
+  padding:40px;
+
+  border-radius:20px;
+
+  background:
+  rgba(255,255,255,.12);
+}
+
+/* DARK MODE */
+
+.dark{
+
+  background:
+  linear-gradient(
+    135deg,
+    #0f172a,
+    #1e293b
+  );
+}
+
+.dark .task,
+.dark input,
+.dark textarea,
+.dark .header{
+
+  background:
+  rgba(30,41,59,.75);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  input,
+  textarea{
+    width:90%;
+  }
+
+  .header{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  #tasks{
+    grid-template-columns:1fr;
+  }
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h2>ADD YOUR WORKS</h2>
+
+  <div>
+    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SEARCH BAR TOP CENTER -->
+  <div class="search-bar">
+    <input
+      id="search"
+      placeholder="🔍 Search Tasks"
+      onkeyup="loadTasks()"
+    >
+  </div>
+
+  <!-- TITLE -->
+  <input
+    id="title"
+    placeholder="Task Title"
+  >
+
+  <br>
+
+  <!-- DESCRIPTION -->
+  <textarea
+    id="description"
+    rows="4"
+    placeholder="Task Description (minimum 20 characters)"
+  ></textarea>
+
+  <br>
+
+  <!-- DEADLINE -->
+  <input
+    id="deadline"
+    type="datetime-local"
+  >
+
+  <br>
+
+  <button onclick="addTask()">
+    Add Task
+  </button>
+
+  <h3 id="count"></h3>
+
+  <div id="loading" style="display:none">
+    Loading Tasks...
+  </div>
+
+  <div id="tasks"></div>
+
+</div>
+
+<script>
+
+const token = localStorage.getItem("token");
+
+// LOGOUT
+function logout() {
+  localStorage.clear();
+  window.location = "login.html";
+}
+
+// DARK MODE
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
+
+// LOAD TASKS
+async function loadTasks() {
+
+  loading.style.display = "block";
+
+  const res = await fetch(
+    "http://localhost:5000/tasks",
+    {
+      headers: {
+        Authorization: token
+      }
+    }
+  );
+
+  let data = await res.json();
+
+  loading.style.display = "none";
+
+  // SEARCH
+  const keyword =
+    search.value.toLowerCase();
+
+  data = data.filter(t =>
+    t.title.toLowerCase().includes(keyword)
+  );
+
+  tasks.innerHTML = "";
+
+  count.innerText =
+    "Total Tasks: " + data.length;
+
+  // EMPTY STATE
+  if(data.length === 0){
+
+    tasks.innerHTML = `
+      <div class="empty">
+        <h3>No Tasks Found 📭</h3>
+      </div>
+    `;
+
+    return;
+  }
+
+  data.forEach(t => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "task";
+
+    const status = t.completed
+      ? "<span class='completed'>COMPLETED</span>"
+      : "<span class='pending'>PENDING</span>";
+
+    div.innerHTML = `
+      <h3>${t.title}</h3>
+
+      <p>
+        <b>Description:</b><br>
+        ${t.description}
+      </p>
+
+      <p>
+        <b>Status:</b>
+        ${status}
+      </p>
+
+      <p>
+        <b>Created Date:</b><br>
+        ${new Date(t.createdAt)
+          .toLocaleString()}
+      </p>
+
+      <p>
+        <b>Deadline:</b><br>
+        ${new Date(t.deadline)
+          .toLocaleString()}
+      </p>
+
+      <div class="actions">
+
+        <button
+          onclick="completeTask('${t._id}')">
+          ✔ Complete
+        </button>
+
+        <button
+          onclick="deleteTask('${t._id}')">
+          ❌ Delete
+        </button>
+
+      </div>
+    `;
+
+    tasks.appendChild(div);
+
+  });
+
+}
+
+// ADD TASK
+async function addTask() {
+
+  if(
+    !title.value ||
+    !description.value ||
+    !deadline.value
+  ){
+    alert("Fill all fields");
+    return;
+  }
+
+  if(description.value.length < 20){
+    alert(
+      "Description must be at least 20 characters"
+    );
+    return;
+  }
+
+  await fetch(
+    "http://localhost:5000/addTask",
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        Authorization:token
+      },
+      body:JSON.stringify({
+        title:title.value,
+        description:description.value,
+        deadline:deadline.value
+      })
+    }
+  );
+
+  title.value = "";
+  description.value = "";
+  deadline.value = "";
+
+  loadTasks();
+}
+
+// COMPLETE TASK
+async function completeTask(id){
+
+  await fetch(
+    `http://localhost:5000/complete/${id}`,
+    {
+      method:"PUT",
+      headers:{
+        Authorization:token
+      }
+    }
+  );
+
+  loadTasks();
+}
+
+// DELETE TASK
+async function deleteTask(id){
+
+  await fetch(
+    `http://localhost:5000/delete/${id}`,
+    {
+      method:"DELETE",
+      headers:{
+        Authorization:token
+      }
+    }
+  );
+
+  loadTasks();
+}
+
+// INITIAL LOAD
+loadTasks();
+
+</script>
+
+</body>
+</html>
