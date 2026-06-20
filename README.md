@@ -5,7 +5,7 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone 
+git clone https://github.com/srik1234567/Project-Management-Portal.git
 cd Project
 ```
 
