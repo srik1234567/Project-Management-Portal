@@ -18,6 +18,7 @@ npm install
 ### 3. Start the Server
 
 ```bash
+Node.js
 npm start
 ```
 
@@ -42,6 +43,7 @@ dashboard.html
 Ensure MongoDB is running locally:
 
 ```text
+mongodb compass
 mongodb://127.0.0.1:27017/todoDB
 ```
 
@@ -49,7 +51,7 @@ mongodb://127.0.0.1:27017/todoDB
 
 ## Assumptions
 
-* MongoDB is installed and running locally.
+* MongoDB compass is installed and running locally.
 * Node.js and npm are installed.
 * JWT is used for authentication.
 * Each user can only access their own tasks.
