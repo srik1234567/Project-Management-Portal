@@ -50,7 +50,7 @@ Ensure MongoDB is running locally:
 
 ```text
 mongodb compass
-mongodb://127.0.0.1:27017/todoDB
+mongodb://127.0.0.1:27017/studentDB
 ```
 
 ---
@@ -78,8 +78,8 @@ Request:
 
 ```json
 {
-  "email": "pentelasrikanth52@gmail.com",
-  "password": "Pen@1234"
+  "email": "vtu26029@veltech.edu.in",
+  "password": "vtu26029"
 }
 ```
 
@@ -99,8 +99,8 @@ Request:
 
 ```json
 {
-  "email": "pentelasrikanth52@gmail.com",
-  "password": "Pen@1234"
+  "email": "vtu26029@veltech.edu.in",
+  "password": "vtu26029"
 }
 ```
 
