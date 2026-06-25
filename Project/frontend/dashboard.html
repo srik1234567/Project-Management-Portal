@@ -417,12 +417,34 @@ async function loadTasks() {
   loading.style.display = "none";
 
   // SEARCH
-  const keyword =
-    search.value.toLowerCase();
+  const keyword = search.value.toLowerCase().trim();
 
-  data = data.filter(t =>
-    t.title.toLowerCase().includes(keyword)
+data = data.filter(task => {
+
+  const title =
+    task.title.toLowerCase();
+
+  const description =
+    task.description.toLowerCase();
+
+  const progress =
+    task.completed
+      ? "completed"
+      : "pending";
+
+  const createdDate =
+    new Date(task.createdAt)
+      .toLocaleString()
+      .toLowerCase();
+
+  return (
+    title.includes(keyword) ||
+    description.includes(keyword) ||
+    progress.includes(keyword) ||
+    createdDate.includes(keyword)
   );
+
+});
 
   tasks.innerHTML = "";
 
