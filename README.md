@@ -13,13 +13,19 @@ cd Project
 
 ```bash
 npm install
+npm init -y
+npm install express
+npm install mongoose express
+npm install cors
+npm install bcrypt
+npm install jsonwebtoken
 ```
 
 ### 3. Start the Server
 
 ```bash
-Node.js
 npm start
+node server.js
 ```
 
 Server will run on:
